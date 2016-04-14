@@ -1,0 +1,10 @@
+﻿@using lat.Models.Completed
+@model Statistics
+
+<!--<b>Search Terms:    @ViewData["searchWords"]</b>-->
+<p>mean:            @Model.mean</p>
+<p>median:          @Model.median</p>
+<p>lowerQuartile:   @Model.lowerQuartile</p>
+<p>upperQuartile:   @Model.upperQuartile</p>
+
+<input type="button" value="Search Again" onclick="@("window.location.href='" + @Url.Action("Index", "wo") + "'");" />
