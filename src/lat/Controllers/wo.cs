@@ -65,18 +65,18 @@ namespace lat.Controllers
         }
 
         [HttpPost]
-        public IActionResult DisplayStats(SafeItems safeItems)
+        public IActionResult DisplayStats(SafeItems model)
         {
             //ViewData["searchWords"] = searchWords;
             Statistics stats = new Statistics();
             List<double> numbers = new List<double>();
 
-            string createText = "Hel1111o and Welcome " + safeItems.safeItems[0].currentPrice;
+            string createText = "Hel1111o and Welcome " + model.safeItems[0].currentPrice;
             System.IO.File.WriteAllText("C:\\Users\\echerin\\Desktop\\tes1.txt", createText);
 
-            if (safeItems != null && safeItems.safeItems != null)
+            if (model != null && model.safeItems != null)
             {
-                foreach (SafeItem s in safeItems.safeItems)
+                foreach (SafeItem s in model.safeItems)
                 {
                     
                         numbers.Add(Double.Parse(s.currentPrice));
