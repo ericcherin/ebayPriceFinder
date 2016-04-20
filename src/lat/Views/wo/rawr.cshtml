@@ -1,0 +1,15 @@
+﻿@using lat.Models.Completed
+@model SchoolImages
+
+hi
+@using (Html.BeginForm("rawr", "wo"))
+{
+    for(int i =0; i< 2; i++)
+    {
+        @Model.images[i].url 
+        <br />
+
+
+    }
+    
+}

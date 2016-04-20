@@ -1,18 +1,22 @@
 ﻿@using lat.Models.Completed
-@model List<SafeItem>
+@model SafeItems
 
 @{ int count = 0; }
 <head>Search Term: @ViewData["searchWords"]</head>
 <br />
 
-<form asp-action="DisplayStats">
-        <input type="submit" value="Generate Statistics" />
-</form>
 
 
-    @foreach (SafeItem item in Model)
+@using (Html.BeginForm("DisplayStats" , "wo"))
+{
+
+    <input type="submit" value="Generate stats" />
+
+    @for (int i =0; i<Model.safeItems.Count; i++)
     {
+        SafeItem item = Model.safeItems[i];
 
+        @Html.TextBoxFor(x => Model.safeItems[i].currentPrice)
         <div class="row">
 
             <div id="white" class="col-sm-3 top-buffer"><img src="@item.galleryURL" /></div>
@@ -29,6 +33,8 @@
 
         count++;
     }
+
+}
 
     <script>
 
