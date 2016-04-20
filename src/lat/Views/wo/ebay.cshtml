@@ -1,54 +1,12 @@
 ﻿@using lat.Models.Completed
 @model SafeItems
 
-@{ int count = 0; }
-<head>Search Term: @ViewData["searchWords"]</head>
-<br />
-
-
-
-@using (Html.BeginForm("DisplayStats" , "wo"))
+@using (Html.BeginForm("da" , "wo"))
 {
-
     <input type="submit" value="Generate stats" />
-
     @for (int i =0; i<Model.safeItems.Count; i++)
     {
-        SafeItem item = Model.safeItems[i];
-
         @Html.TextBoxFor(x => Model.safeItems[i].currentPrice)
-        <div class="row">
-
-            <div id="white" class="col-sm-3 top-buffer"><img src="@item.galleryURL" /></div>
-
-            <a href="@item.viewItemURL">
-                <div class="col-sm-6 gray top-buffer"> @item.title <br /> <br /> Current Price: @item.currentPrice$ </div>
-
-            </a>
-            <r class="col-sm-3 select top-buffer" id="@(count)">@count</r>
-
-        </div>
-
-
-
-        count++;
     }
 
 }
-
-    <script>
-
-        $(document).ready(function () {
-            $("r").click(function () {
-                if ($(this).css("background-color") == "rgb(34, 139, 34)") {
-                    $(this).css("background-color", "red");
-                }
-                else {
-
-                    $(this).css("background-color", "forestgreen");
-                }
-            })
-        });
-
-
-    </script>
