@@ -20,12 +20,19 @@ namespace lat.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-          
 
+            ExcellWriter.test();
+            ExcellWriter.testRead();
             return View("EnterSearch");
         }
 
-       
+        // GET: /<controller>/
+        public IActionResult chart()
+        {
+
+           
+            return View();
+        }
 
         [HttpPost]
         public IActionResult roa(SchoolImages model)
@@ -65,9 +72,9 @@ namespace lat.Controllers
         }
 
         [HttpPost]
-        public IActionResult DisplayStats(SafeItems model)
+        public IActionResult DisplayStats(SafeItems model, string searchWords)
         {
-            //ViewData["searchWords"] = searchWords;
+            ViewData["searchWords"] = searchWords;
             Statistics stats = new Statistics();
             List<double> numbers = new List<double>();
 
@@ -152,6 +159,7 @@ namespace lat.Controllers
            
             }
             System.IO.File.WriteAllText("C:\\Users\\echerin\\Desktop\\tes1.txt", tt);
+            
             return View(safeItems);  
         }
 

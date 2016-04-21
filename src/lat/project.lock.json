@@ -135,6 +135,15 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "EPPlus/4.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net20/EPPlus.dll": {}
+        },
+        "runtime": {
+          "lib/net20/EPPlus.dll": {}
+        }
+      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2235,6 +2244,15 @@
         },
         "runtime": {
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
+        }
+      },
+      "EPPlus/4.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net20/EPPlus.dll": {}
+        },
+        "runtime": {
+          "lib/net20/EPPlus.dll": {}
         }
       },
       "Ix-Async/1.2.5": {
@@ -4342,6 +4360,15 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "EPPlus/4.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net20/EPPlus.dll": {}
+        },
+        "runtime": {
+          "lib/net20/EPPlus.dll": {}
+        }
+      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -6425,6 +6452,18 @@
         "lib/net451/EntityFramework.Relational.Design.dll",
         "lib/net451/EntityFramework.Relational.Design.xml",
         "lib/netcore50/_._"
+      ]
+    },
+    "EPPlus/4.0.5": {
+      "type": "package",
+      "sha512": "KwB4UO2t/VU4EL2sZklhnMAT4VihqzrhsAwIuuzYYki3iqIoYjJ1ZRDcwFwWHQ4U4S6ZJhq9PIO95c4jtaqMHA==",
+      "files": [
+        "EPPlus.4.0.5.nupkg",
+        "EPPlus.4.0.5.nupkg.sha512",
+        "EPPlus.nuspec",
+        "lib/net20/EPPlus.dll",
+        "lib/net20/EPPlus.XML",
+        "lib/readme.txt"
       ]
     },
     "Ix-Async/1.2.5": {
@@ -8623,6 +8662,7 @@
     "": [
       "EntityFramework.Commands >= 7.0.0-rc1-final",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
+      "EPPlus >= 4.0.5",
       "log4net >= 1.2.10",
       "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final",

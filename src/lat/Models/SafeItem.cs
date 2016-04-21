@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 namespace lat.Models.Completed
 {
@@ -7,7 +8,8 @@ namespace lat.Models.Completed
         public string galleryURL { get; set; }
         public string viewItemURL { get; set; }
         public string title { get; set; }
-        public string currentPrice { get; set; }
+        public double currentPrice { get; set; }
+        public string completed { get; set; }
 
         public SafeItem() { }
 
@@ -27,7 +29,7 @@ namespace lat.Models.Completed
             }
             if(item.sellingStatus != null && item.sellingStatus[0].currentPrice != null)
             {
-                this.currentPrice = item.sellingStatus[0].currentPrice[0].__value__;
+                this.currentPrice = Double.Parse(item.sellingStatus[0].currentPrice[0].__value__);
             }
         }
     }
