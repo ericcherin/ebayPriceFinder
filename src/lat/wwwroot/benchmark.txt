@@ -1,0 +1,14 @@
+get respinse 1, 0.610846
+get respone2, 1.2022099
+add convert to safeitems, 2.2E-06
+deserialize, 0.0007936
+converting from list to safeitems, 7.2E-06
+fresh, 3E-07
+tosafetyfunction, 0.0870717
+add convert to safeitems, 1.5E-06
+deserialize, 0.0008484
+converting from list to safeitems, 6.4E-06
+fresh, 0
+tosafetyfunction, 0.0001904
+end of to safety function, 4.2166138
+end of to safety function, 9.8E-06

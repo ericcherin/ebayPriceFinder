@@ -1,0 +1,32 @@
+safeitemslist is: 100
+safeitemslist is: 100
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+safeitemslist is: 50
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+safeitemslist is: 50
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
+safeitemslist is: 50
+safeitemslist is: 50
+safeitemslist is: 50
+safeitemslist is: 50
+safeitemslist is: 100
+safeitemslist is: 100
+safeitemslist is: 100
+safeitemslist is: 100
+safeitemslist is: 10
+safeitemslist is: 10
+safeitemslist is: 10
+safeitemslist is: 10
+safeitemslist is: 10
+safeitemslist is: 10
