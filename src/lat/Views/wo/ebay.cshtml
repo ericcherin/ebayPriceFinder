@@ -2,13 +2,33 @@
 @model SafeItems
 
 @{ int count = 0; }
-<head>
-    Search Term: @ViewData["searchWords"]
-</head>
-<br />
+
+
+@using (Html.BeginForm("Ebay", "wo"))
+{
+    <br />
+    <input type="text"  name="searchWords" value=@ViewData["searchWords"] />
+    <input type="submit" value="Search eBay" />
+    <br />
+    <br />
+    
+    
+
+}
+@using (Html.BeginForm("Ebay", "wo"))
+{
+    <b>Price higher than:</b>
+    <input type="text" name="lower" />
+    <b>Price lower than:</b>
+    <input type="text" name="higher" />
+    <input type="submit" name="filter" value="Filter" />
+    
+    <br />
+
+    <br />
 
 <body>
-    <div style="width:50%">
+    <div style="width:50%;margin: 0 auto">
         <div>
             <canvas id="canvas"></canvas>
         </div>
@@ -25,7 +45,7 @@
                 data: [
                  @for (int i = 0; i < Model.safeItems.Count; i++)
                 {
-                    if (!Model.safeItems[i].sold.Equals("not sold")) {
+                    if (Model.safeItems[i].sold.Equals("not sold")) {
                         <text>
                         {
                             x: 1,
@@ -102,10 +122,7 @@
                 data: scatterChartData,
                 options: {
 				//scaleShowLabels : false,
-                    title: {
-                        display: true,
-                        text: 'Chart.js Scatter Chart'
-                    },
+                    
                     scales: {
                         xAxes: [{
 						display: false,
@@ -123,34 +140,42 @@
     </script>
 </body>
 
-@using (Html.BeginForm("DisplayStats", "wo"))
-{
+
     <input type="hidden" name="searchWords" value="@ViewData["searchWords"]" />
     <br />
-    <input type="submit" value="Generate stats" />
+    
 
     @for (int i = 0; i < Model.safeItems.Count; i++)
     {
         SafeItem item = Model.safeItems[i];
 
         @Html.HiddenFor(x => Model.safeItems[i].currentPrice)
-        <div class="row">
+        @Html.HiddenFor(x => Model.safeItems[i].title)
+        @Html.HiddenFor(x => Model.safeItems[i].viewItemURL)
+        @Html.HiddenFor(x => Model.safeItems[i].galleryURL)
+        @Html.HiddenFor(x => Model.safeItems[i].sold)
 
-            <div id="white" class="col-sm-3 top-buffer"><img src="@item.galleryURL" /></div>
+        <div class="outlne">
+            <div id="white" class="col-sm-2 top-buffer">
+                <div class="top-buffer">
+                    <img src="@item.galleryURL" />
+                </div>
+
+            </div>
 
             <a href="@item.viewItemURL">
-                <div class="col-sm-6 gray top-buffer">
-                    @item.title <br /> <br /> Current Price: $@item.currentPrice
-                    <br />
-                    <br />
-                    @(item.sold)
+                <div class="col-sm-4">
+                    <div class="gray top-buffer">
+                        @item.title <br /> <br /> Current Price: $@item.currentPrice
+                        <br />
+                        <br />
+                        @(item.sold)
+                    </div>
                 </div>
 
             </a>
-            <r class="col-sm-3 select top-buffer" id="@(count)">@count</r>
-
+            <!--<r class="col-sm-3 select top-buffer" id="@(count)">@count</r>-->
         </div>
-
 
 
         count++;
@@ -158,19 +183,3 @@
 
 }
 
-<script>
-
-        $(document).ready(function () {
-            $("r").click(function () {
-                if ($(this).css("background-color") == "rgb(34, 139, 34)") {
-                    $(this).css("background-color", "red");
-                }
-                else {
-
-                    $(this).css("background-color", "forestgreen");
-                }
-            })
-        });
-
-
-</script>

@@ -1,9 +1,13 @@
 ﻿
 @using(Html.BeginForm("Ebay", "wo"))
 {
-
+    <br />
     <input type="text" id="searchWords" name="searchWords" />
-
     <input type="submit" value ="Search eBay" />
+    <br /><br />
 
- }
+    <b>Price lower than:</b><input type="text" id="searchWords" name="searchWords" />
+    <b>Price higher than:</b><input type="text" id="searchWords" name="searchWords" />
+    <input type="submit" value="Filter" />
+
+}

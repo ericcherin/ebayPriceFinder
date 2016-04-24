@@ -32,6 +32,8 @@ namespace lat
             Profiler.stop();
             //Profiler.write();
             
+           
+
             return itemsWrapper;
         }
 
@@ -114,7 +116,7 @@ namespace lat
             }
 
             safeItemList.AddRange(await Task.WhenAll(tasks));
-            Writer.appendString("safeitemslist is: " + safeItemList.Count);
+          
             Profiler.newTask("end of to safety function");
             return safeItemList;
         }

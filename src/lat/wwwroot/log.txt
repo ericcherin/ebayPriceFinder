@@ -1,32 +1,44 @@
-safeitemslist is: 100
-safeitemslist is: 100
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-safeitemslist is: 50
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-safeitemslist is: 50
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-System.Collections.Generic.List`1[System.Tuple`2[System.String,System.Double]]
-safeitemslist is: 50
-safeitemslist is: 50
-safeitemslist is: 50
-safeitemslist is: 50
-safeitemslist is: 100
-safeitemslist is: 100
-safeitemslist is: 100
-safeitemslist is: 100
-safeitemslist is: 10
-safeitemslist is: 10
-safeitemslist is: 10
-safeitemslist is: 10
-safeitemslist is: 10
-safeitemslist is: 10
+hi
+   
+hi
+hats   
+hi
+hats 1 Filter 2  3 
+hi
+hats 1  2  3 
+hi
+hats 1 true 2 40 3 33
+hi
+hats 1 true 2 20 3 5
+hi
+hats 1  2  3 
+hi
+hats 1 Filter 2 5 3 20
+hi
+hats 1 Filter 2 5 3 20
+hi
+hats 1  2  3 
+hi
+hats 1 Filter 2 10 3 20
+hi
+hats 1 Filter 2 0 3 33
+hi
+car 1  2  3 
+hi
+card 1  2  3 
+hi
+card 1 Filter 2 15 3 46
+hi
+card 1 Filter 2 15 3 222
+hi
+card 1 Filter 2 15 3 222
+hi
+ 1  2  3 
+hi
+ 1  2  3 
+hi
+ 1  2  3 
+hi
+cats 1  2  3 
+hi
+cats 1 Filter 2 23 3 55

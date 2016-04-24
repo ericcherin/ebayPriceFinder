@@ -49,12 +49,53 @@ namespace lat.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Ebay(string searchWords)
+        public async Task<ActionResult> Ebay(SafeItems model, string searchWords, string filter, string lower, string higher)
         {
+
              ViewData["searchWords"] = searchWords;
-            return View(await EbayApi.getItems(searchWords));  
+            SafeItems si;
+            Writer.appendString("hi");
+            Writer.appendString(searchWords + " 1 " + filter + " 2 " + lower + " 3 " + higher);
+            if (("Filter").Equals(filter) && model != null)
+            {
+                
+                double lowerBound = isValid(lower) ? Double.Parse(lower) : 0;
+                double upperBound = isValid(higher) ? Double.Parse(higher) : double.MaxValue;
+                si = new SafeItems();
+                si.safeItems = new List<SafeItem>();
+                foreach(SafeItem s in model.safeItems)
+                {
+                    if (s.currentPrice > lowerBound && s.currentPrice < upperBound)
+                    {
+                        si.safeItems.Add(s);
+                    }
+                }
+            }
+            else
+            {
+                si = await EbayApi.getItems(searchWords);
+            }
+            
+
+            return View(si);  
             
                
+        }
+
+        private bool isValid(string s)
+        {
+            if(s.Length < 1)
+            {
+                return false;
+            }
+            try
+            {
+                Double.Parse(s);
+                return true;
+            }
+            catch { }
+            return false;
+            
         }
 
        

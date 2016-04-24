@@ -3,19 +3,12 @@ using System.Collections.Generic;
 namespace lat.Models.Completed
 {
 
-    public class ImageModel
+    public class SearchLists
     {
-        public int id { get; set; }
-        public string url { get; set; }
-        public bool delete { get; set; }
-
-        public ImageModel() { }
-
+        public string searchTerms { get; set; }
+        public SafeItems si { get; set; }
 
     }
-    public class SchoolImages
-    {
-        public IList<ImageModel> images { get; set; }
-    }
+
     
 }

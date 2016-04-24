@@ -3,8 +3,16 @@
     padding-bottom: 20px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+input[type="text"], input[type="submit"] { 
+    
+    border:1px solid; 
+    padding-left: 5px;
+} 
+
+br{
+    padding: 5px;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -22,13 +30,13 @@ img{
 
     height:160px;
     text-align:center;
-   
+
 }
 
 #menuleftcontent{
     float: left;
-    width: 200px;
-    margin-left: -200px;
+
+
     background-color: #CCCCCC;
 }
 
@@ -36,35 +44,9 @@ img{
         background-color:aliceblue;
 }
 
-.select{
-    background-color:forestgreen;
-    widows:160;
-}
-
 
 row{
     height:160px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
 
-/* Carousel */
-.carousel-caption {
-    z-index: 10 !important;
-}
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-}
