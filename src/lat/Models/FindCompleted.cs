@@ -8,6 +8,12 @@ namespace lat.Models.Completed
         public List<string> categoryName { get; set; }
     }
 
+    public class SecondaryCategory
+    {
+        public List<string> categoryId { get; set; }
+        public List<string> categoryName { get; set; }
+    }
+
     public class ShippingServiceCost
     {
         public string currencyId { get; set; }
@@ -103,7 +109,7 @@ namespace lat.Models.Completed
         public List<string> totalEntries { get; set; }
     }
 
-    public class FindCompletedItemsResponse
+    public class FindCompletedItemsResponse : ItemResponse
     {
         public List<string> ack { get; set; }
         public List<string> version { get; set; }
@@ -112,8 +118,32 @@ namespace lat.Models.Completed
         public List<PaginationOutput> paginationOutput { get; set; }
     }
 
+    public class FindItemsByKeywordsResponse : ItemResponse
+    {
+        public List<string> ack { get; set; }
+        public List<string> version { get; set; }
+        public List<string> timestamp { get; set; }
+        public List<SearchResult> searchResult { get; set; }
+        public List<PaginationOutput> paginationOutput { get; set; }
+        public List<string> itemSearchURL { get; set; }
+    }
+
+    public interface ItemResponse
+    {
+        List<string> ack { get; set; }
+        List<string> version { get; set; }
+        List<string> timestamp { get; set; }
+        List<SearchResult> searchResult { get; set; }
+        List<PaginationOutput> paginationOutput { get; set; }
+    }
+
     public class FindCompleted
     {
         public List<FindCompletedItemsResponse> findCompletedItemsResponse { get; set; }
+    }
+
+    public class FindCurrent
+    {
+        public List<FindItemsByKeywordsResponse> findItemsByKeywordsResponse { get; set; }
     }
 }

@@ -11,10 +11,6 @@ namespace lat.Models.Completed
 
         public ImageModel() { }
 
-        public ImageModel(string s)
-        {
-            url = s;
-        }
 
     }
     public class SchoolImages

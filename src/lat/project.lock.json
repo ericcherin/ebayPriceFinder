@@ -1883,6 +1883,15 @@
           "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
+      "MiniProfiler/3.2.0.157": {
+        "type": "package",
+        "compile": {
+          "lib/net40/MiniProfiler.dll": {}
+        },
+        "runtime": {
+          "lib/net40/MiniProfiler.dll": {}
+        }
+      },
       "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
@@ -3995,6 +4004,15 @@
         },
         "runtime": {
           "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "MiniProfiler/3.2.0.157": {
+        "type": "package",
+        "compile": {
+          "lib/net40/MiniProfiler.dll": {}
+        },
+        "runtime": {
+          "lib/net40/MiniProfiler.dll": {}
         }
       },
       "Newtonsoft.Json/6.0.6": {
@@ -6111,6 +6129,15 @@
           "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
+      "MiniProfiler/3.2.0.157": {
+        "type": "package",
+        "compile": {
+          "lib/net40/MiniProfiler.dll": {}
+        },
+        "runtime": {
+          "lib/net40/MiniProfiler.dll": {}
+        }
+      },
       "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
@@ -7842,6 +7869,18 @@
         "Microsoft.Web.Infrastructure.nuspec"
       ]
     },
+    "MiniProfiler/3.2.0.157": {
+      "type": "package",
+      "sha512": "oF44Erqo3kocAljh884cbwh7TnJz86kBLYMNh7cRHdzpB/A3ekq+HnBOd+v939GsneyUVqKtCIFXrMLbFOIVFQ==",
+      "files": [
+        "lib/net40/MiniProfiler.dll",
+        "lib/net40/MiniProfiler.pdb",
+        "lib/net40/MiniProfiler.xml",
+        "MiniProfiler.3.2.0.157.nupkg",
+        "MiniProfiler.3.2.0.157.nupkg.sha512",
+        "MiniProfiler.nuspec"
+      ]
+    },
     "Newtonsoft.Json/6.0.6": {
       "type": "package",
       "sha512": "w26uZNyCG5VeoKiEOJ4+9/o8koSofLKwHl7WLreIcp0U6r57L7WiRXmjp8MTKFw6dYNZ9AE0lw69WYbIhUsU9Q==",
@@ -8680,11 +8719,13 @@
       "Microsoft.Extensions.Logging >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
-      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final"
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
+      "MiniProfiler >= 3.2.0.157"
     ],
     "DNX,Version=v4.5.1": [
       "eBay >= 3.939.0",
       "Microsoft.AspNet.WebPages >= 3.2.3",
+      "fx/System.Web >= 4.0.0",
       "fx/System.Web.Services >= 4.0.0"
     ]
   }

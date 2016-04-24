@@ -2,27 +2,149 @@
 @model SafeItems
 
 @{ int count = 0; }
-<head>Search Term: @ViewData["searchWords"]</head>
+<head>
+    Search Term: @ViewData["searchWords"]
+</head>
 <br />
 
+<body>
+    <div style="width:50%">
+        <div>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script>
 
+        var scatterChartData = {
+            datasets: [
+			{
+			label: "",//blank
+			data:[{x:0,y:0}]}
+			,{
+                label: "not sold",
+                data: [
+                 @for (int i = 0; i < Model.safeItems.Count; i++)
+                {
+                    if (!Model.safeItems[i].sold.Equals("not sold")) {
+                        <text>
+                        {
+                            x: 1,
+                            y: @Model.safeItems[i].currentPrice
+                        },
+                        </text>
+                    }
+                }
+                ]
+            }, {
+                label: "sold",
+                data: [
+                    @for (int i = 0; i < Model.safeItems.Count; i++)
+                    {
+                        if (Model.safeItems[i].sold.Equals("sold")) {
+                        <text>
+                        {
+                            x: 2,
+                            y: @Model.safeItems[i].currentPrice
+                        },
+                        </text>
+                            }
+                        }
+               ]
+            },{
+                label: "listing",
+                data: [                
+                        @for (int i = 0; i < Model.safeItems.Count; i++)
+                        {
+                            if (Model.safeItems[i].sold.Equals("listing")) {
+                                <text>
+                                {
+                                    x: 3,
+                                    y: @Model.safeItems[i].currentPrice
+                                },
+                                </text>
+                            }
+                        }              
+                ]
+            }, {
+			label: "",
+			data:[{x:4,y:0}]}]
+        };
+
+        $.each(scatterChartData.datasets, function(i, dataset) {
+            dataset.borderColor = 'rgba(0,0,0,0)';
+            dataset.pointBorderColor = 'rgba(0,0,0,0)';
+            dataset.pointBackgroundColor = 'rgba(0,0,0,0)';
+
+        });
+
+
+		var purple = 'rgb(173,0,204)';
+		var clear = 'rgb(255,255,255)';
+		var green = 'rgb(0,128,0)';
+		var red = 'rgb(255,0,0)';
+		var orange = 'rgb(255,128,64)';
+
+		scatterChartData.datasets[0].pointBackgroundColor = clear; //space
+		scatterChartData.datasets[1].pointBackgroundColor = red; //not sold
+		scatterChartData.datasets[2].pointBackgroundColor = green; // sold
+		scatterChartData.datasets[3].pointBackgroundColor = orange; //listing
+		scatterChartData.datasets[4].pointBackgroundColor = clear;//space
+
+		scatterChartData.datasets[0].backgroundColor = clear; //space
+		scatterChartData.datasets[1].backgroundColor = red; //notsold
+		scatterChartData.datasets[2].backgroundColor = green; // sold
+		scatterChartData.datasets[3].backgroundColor = orange; //listing
+		scatterChartData.datasets[4].backgroundColor = clear;//space
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myScatter = Chart.Scatter(ctx, {
+                data: scatterChartData,
+                options: {
+				//scaleShowLabels : false,
+                    title: {
+                        display: true,
+                        text: 'Chart.js Scatter Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+						display: false,
+                            position: 'top',
+
+                        }]
+
+                    }
+                }
+            });
+
+        };
+
+
+    </script>
+</body>
 
 @using (Html.BeginForm("DisplayStats", "wo"))
 {
     <input type="hidden" name="searchWords" value="@ViewData["searchWords"]" />
+    <br />
     <input type="submit" value="Generate stats" />
 
-    @for (int i =0; i<Model.safeItems.Count; i++)
+    @for (int i = 0; i < Model.safeItems.Count; i++)
     {
         SafeItem item = Model.safeItems[i];
 
-        @Html.TextBoxFor(x => Model.safeItems[i].currentPrice)
+        @Html.HiddenFor(x => Model.safeItems[i].currentPrice)
         <div class="row">
 
             <div id="white" class="col-sm-3 top-buffer"><img src="@item.galleryURL" /></div>
 
             <a href="@item.viewItemURL">
-                <div class="col-sm-6 gray top-buffer"> @item.title <br /> <br /> Current Price: @item.currentPrice$ </div>
+                <div class="col-sm-6 gray top-buffer">
+                    @item.title <br /> <br /> Current Price: $@item.currentPrice
+                    <br />
+                    <br />
+                    @(item.sold)
+                </div>
 
             </a>
             <r class="col-sm-3 select top-buffer" id="@(count)">@count</r>
@@ -36,7 +158,7 @@
 
 }
 
-    <script>
+<script>
 
         $(document).ready(function () {
             $("r").click(function () {
@@ -51,4 +173,4 @@
         });
 
 
-    </script>
+</script>

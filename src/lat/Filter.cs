@@ -13,7 +13,7 @@ namespace lat
             safeItems.safeItems.Where(x => {
                 if( x.currentPrice >= lowestPrice && x.currentPrice <= highestPrice)
                 {
-                    if(completed.Equals("") || completed.Equals(x.completed))
+                    if(completed.Equals("") || completed.Equals(x.sold))
                     {
                         return true;
                     }
