@@ -1,5 +1,5 @@
-﻿@using lat.Models.Completed
-@model SafeItems
+﻿@using lat.Models
+@model SafeItemList
 
 @{ int count = 0; }
 
@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Ebay", "wo"))
 {
     <br />
-    <input type="text"  name="searchWords" value=@ViewData["searchWords"] />
+    <input type="text"  name="searchWords" value="@ViewData["searchWords"]" />
     <input type="submit" value="Search eBay" />
     <br />
     <br />

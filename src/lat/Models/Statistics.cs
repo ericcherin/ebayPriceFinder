@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace lat.Models.Completed
+namespace lat.Models
 {
 
     public class Statistics

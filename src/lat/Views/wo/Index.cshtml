@@ -1,1 +1,162 @@
-﻿hi
+﻿
+<!doctype html>
+<html ng-app="todoApp">
+<head>
+    <script src="todo.js"></script>
+
+</head>
+<body>
+    <h2>Todo</h2>
+    <div ng-controller="TodoListController as todoList">
+        {{1+2}}
+        <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+        [ <a href="" ng-click="todoList.archive()">archive</a> ]
+        <ul class="unstyled">
+            <li ng-repeat="todo in todoList.todos">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="todo.done">
+                    <span class="done-{{todo.done}}">{{todo.text}}</span>
+                </label>
+            </li>
+        </ul>
+        <form ng-submit="todoList.addTodo()">
+            <input type="text" ng-model="todoList.todoText" size="30"
+                   placeholder="add new todo here">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+    </div>
+</body>
+</html>
+
+<div style="width:50%;margin: 0 auto">
+    <div>
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+<script>
+    ara = [
+                {
+                    x: 2,
+                    y: 9
+                },
+                            {
+                                x: 2,
+                                y: 8
+                            },
+                            {
+                                x: 2,
+                                y: 7
+                            },
+                            {
+                                x: 2,
+                                y: 6
+                            },
+    ];
+    var scatterChartData = {
+        datasets: [
+        {
+            label: "",//blank
+            data: [{ x: 0, y: 0 }]
+        }
+        , {
+            label: "not sold",
+            data: [
+            {
+                x: 1,
+                y: 12
+            },
+                            {
+                                x: 1,
+                                y: 13
+                            },
+                            {
+                                x: 1,
+                                y: 13
+                            },
+                            {
+                                x: 1,
+                                y: 14
+                            },
+            ]
+        }, {
+            label: "sold",
+            data: ara
+        }, {
+            label: "listing",
+            data: [
+
+                            {
+                                x: 3,
+                                y: 1
+                            },
+                            {
+                                x: 3,
+                                y: 2
+                            },
+                            {
+                                x: 3,
+                                y: 3
+                            },
+                            {
+                                x: 3,
+                                y: 4
+                            },
+
+            ]
+        }, {
+            label: "",
+            data: [{ x: 4, y: 0 }]
+        }]
+    };
+
+    $.each(scatterChartData.datasets, function (i, dataset) {
+        dataset.borderColor = 'rgba(0,0,0,0)';
+        dataset.pointBorderColor = 'rgba(0,0,0,0)';
+        dataset.pointBackgroundColor = 'rgba(0,0,0,0)';
+
+    });
+
+
+    var purple = 'rgb(173,0,204)';
+    var clear = 'rgb(255,255,255)';
+    var green = 'rgb(0,128,0)';
+    var red = 'rgb(255,0,0)';
+    var orange = 'rgb(255,128,64)';
+
+    scatterChartData.datasets[0].pointBackgroundColor = clear; //space
+    scatterChartData.datasets[1].pointBackgroundColor = red; //not sold
+    scatterChartData.datasets[2].pointBackgroundColor = green; // sold
+    scatterChartData.datasets[3].pointBackgroundColor = orange; //listing
+    scatterChartData.datasets[4].pointBackgroundColor = clear;//space
+
+    scatterChartData.datasets[0].backgroundColor = clear; //space
+    scatterChartData.datasets[1].backgroundColor = red; //notsold
+    scatterChartData.datasets[2].backgroundColor = green; // sold
+    scatterChartData.datasets[3].backgroundColor = orange; //listing
+    scatterChartData.datasets[4].backgroundColor = clear;//space
+
+    window.onload = function () {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myScatter = Chart.Scatter(ctx, {
+            data: scatterChartData,
+            options: {
+                //scaleShowLabels : false,
+
+                scales: {
+                    xAxes: [{
+                        display: false,
+                        position: 'top',
+
+                    }]
+
+                }
+            }
+        });
+
+    };
+
+
+</script>
+</body>
+

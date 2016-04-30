@@ -8,9 +8,10 @@ using lat.Models;
 namespace lat.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160430023150_mig1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -71,7 +72,7 @@ namespace lat.Migrations
 
                     b.Property<string>("searchTerms");
 
-                    b.Property<int?>("siID");
+                    b.Property<int>("siID");
 
                     b.HasKey("ID");
                 });

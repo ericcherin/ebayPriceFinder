@@ -1,12 +1,7 @@
 ﻿
 using System.Collections.Generic;
-namespace lat.Models.Completed
+namespace lat.Models
 {
-    public class PrimaryCategory
-    {
-        public List<string> categoryId { get; set; }
-        public List<string> categoryName { get; set; }
-    }
 
     public class SecondaryCategory
     {
@@ -14,21 +9,6 @@ namespace lat.Models.Completed
         public List<string> categoryName { get; set; }
     }
 
-    public class ShippingServiceCost
-    {
-        public string currencyId { get; set; }
-        public string __value__ { get; set; }
-    }
-
-    public class ShippingInfo
-    {
-        public List<ShippingServiceCost> shippingServiceCost { get; set; }
-        public List<string> shippingType { get; set; }
-        public List<string> shipToLocations { get; set; }
-        public List<string> expeditedShipping { get; set; }
-        public List<string> oneDayShippingAvailable { get; set; }
-        public List<string> handlingTime { get; set; }
-    }
 
     public class CurrentPrice
     {
@@ -42,13 +22,6 @@ namespace lat.Models.Completed
         public string __value__ { get; set; }
     }
 
-    public class SellingStatu
-    {
-        public List<CurrentPrice> currentPrice { get; set; }
-        public List<ConvertedCurrentPrice> convertedCurrentPrice { get; set; }
-        public List<string> bidCount { get; set; }
-        public List<string> sellingState { get; set; }
-    }
 
     public class ListingInfo
     {
@@ -66,11 +39,6 @@ namespace lat.Models.Completed
         public List<string> conditionDisplayName { get; set; }
     }
 
-    public class ProductId
-    {
-        public string type { get; set; }
-        public string __value__ { get; set; }
-    }
 
     public class Item
     {
@@ -82,17 +50,17 @@ namespace lat.Models.Completed
         public List<string> viewItemURL { get; set; }
         public List<string> paymentMethod { get; set; }
         public List<string> autoPay { get; set; }
+        public List<string> postalCode { get; set; }
         public List<string> location { get; set; }
         public List<string> country { get; set; }
         public List<ShippingInfo> shippingInfo { get; set; }
-        public List<SellingStatu> sellingStatus { get; set; }
+        public List<SellingStatus> sellingStatus { get; set; }
         public List<ListingInfo> listingInfo { get; set; }
         public List<string> returnsAccepted { get; set; }
         public List<Condition> condition { get; set; }
         public List<string> isMultiVariationListing { get; set; }
         public List<string> topRatedListing { get; set; }
         public List<ProductId> productId { get; set; }
-        public List<string> postalCode { get; set; }
     }
 
     public class SearchResult

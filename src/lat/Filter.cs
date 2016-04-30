@@ -1,4 +1,4 @@
-﻿using lat.Models.Completed;
+﻿using lat.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace lat
 {
     public class Filter
     {
-        public static void basic(SafeItems safeItems, string completed, double lowestPrice = 0, double highestPrice = double.MaxValue)
+        public static void basic(SafeItemList safeItems, string completed, double lowestPrice = 0, double highestPrice = double.MaxValue)
         {
             safeItems.safeItems.Where(x => {
                 if( x.currentPrice >= lowestPrice && x.currentPrice <= highestPrice)

@@ -7,5 +7,9 @@
     "gulp-cssmin": "0.1.7",
     "gulp-uglify": "1.2.0",
     "rimraf": "2.2.8"
+  },
+  "dependencies": {
+    "angular": "~1.5"
   }
+  
 }

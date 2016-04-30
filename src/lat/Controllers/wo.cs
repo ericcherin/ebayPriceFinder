@@ -9,21 +9,28 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Collections;
-using lat.Models.Completed;
 using log4net;
 using StackExchange.Profiling;
+using lat.Models;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace lat.Controllers
 {
     public class wo : Controller
     {
+        private ApplicationDbContext _context;
+
+        public wo(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
 
           
-            return View("EnterSearch");
+            return View(); //"Ebay"
         }
 
         // GET: /<controller>/
@@ -49,32 +56,62 @@ namespace lat.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Ebay(SafeItems model, string searchWords, string filter, string lower, string higher)
+        public async Task<ActionResult> Ebay(string searchWords, string filter, string lower, string higher)
         {
+            Writer.appendString(searchWords);
+            ViewData["searchWords"] = searchWords;
+            SafeItemList si = new SafeItemList(); ;
 
-             ViewData["searchWords"] = searchWords;
-            SafeItems si;
-            Writer.appendString("hi");
-            Writer.appendString(searchWords + " 1 " + filter + " 2 " + lower + " 3 " + higher);
-            if (("Filter").Equals(filter) && model != null)
-            {
-                
-                double lowerBound = isValid(lower) ? Double.Parse(lower) : 0;
-                double upperBound = isValid(higher) ? Double.Parse(higher) : double.MaxValue;
-                si = new SafeItems();
+            if(searchWords == null || searchWords.Length == 0)
+            {    
                 si.safeItems = new List<SafeItem>();
-                foreach(SafeItem s in model.safeItems)
+                return View(si);
+            }
+
+            CachedSearch cachedSearch = _context.CachedSearch.SingleOrDefault(m => m.searchTerms.Equals(searchWords));
+            if (cachedSearch == null)
+            {
+                si = await EbayApi.getItems(searchWords);
+                cachedSearch = new CachedSearch();
+                cachedSearch.searchTerms = searchWords;
+                cachedSearch.si = si;
+
+                _context.CachedSearch.Add(cachedSearch);
+                _context.SaveChanges();
+
+                foreach (SafeItem item in si.safeItems)
                 {
-                    if (s.currentPrice > lowerBound && s.currentPrice < upperBound)
-                    {
-                        si.safeItems.Add(s);
-                    }
+                    item.listID = cachedSearch.ID;
+                    _context.SafeItem.Add(item);
                 }
+                _context.SaveChanges();
+
+              
             }
             else
             {
-                si = await EbayApi.getItems(searchWords);
+                si.safeItems = _context.SafeItem.Where(m => m.listID == cachedSearch.ID).ToList();
+               
+          
             }
+          
+            if (("Filter").Equals(filter))
+            {
+                SafeItemList tempSi;
+                double lowerBound = isValid(lower) ? Double.Parse(lower) : 0;
+                double upperBound = isValid(higher) ? Double.Parse(higher) : double.MaxValue;
+                tempSi = new SafeItemList();
+                tempSi.safeItems = new List<SafeItem>();
+                foreach(SafeItem s in si.safeItems)
+                {
+                    if (s.currentPrice > lowerBound && s.currentPrice < upperBound)
+                    {
+                        tempSi.safeItems.Add(s);
+                    }
+                }
+                return View(tempSi);
+            }
+           
             
 
             return View(si);  
@@ -84,7 +121,7 @@ namespace lat.Controllers
 
         private bool isValid(string s)
         {
-            if(s.Length < 1)
+            if(s == null)
             {
                 return false;
             }

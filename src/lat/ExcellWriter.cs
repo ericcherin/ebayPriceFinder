@@ -1,4 +1,4 @@
-﻿using lat.Models.Completed;
+﻿using lat.Models;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace lat
     {
         public static string directory = "C:\\Users\\echerin\\Desktop\\";
         public static string defaultFileName = "test1.xlsx";
-        public static void save(SafeItems safeItems, string output)
+        public static void save(SafeItemList safeItems, string output)
         {
 
         }

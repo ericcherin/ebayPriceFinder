@@ -1,4 +1,4 @@
-﻿using lat.Models.Completed;
+﻿using lat.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ namespace lat
     public static class EbayApi
     {
 
-        public static async Task<SafeItems> getItems(String searchWords)
+        public static async Task<SafeItemList> getItems(String searchWords)
         {
             
-            SafeItems itemsWrapper = new SafeItems();
+            SafeItemList itemsWrapper = new SafeItemList();
             itemsWrapper.safeItems = new List<SafeItem>();
             Profiler.clear();
             Profiler.start("get respinse 1");
@@ -47,7 +47,7 @@ namespace lat
 
             //string callName = "findCompletedItems";
             string dataFormat = "JSON&REST-PAYLOAD";
-            string entriesPerPage = "10";
+            string entriesPerPage = "100";
             string serviceVersion = "1.0.0";
 
             string requestURL = "http://svcs.ebay.com/services/search/FindingService/v1?";

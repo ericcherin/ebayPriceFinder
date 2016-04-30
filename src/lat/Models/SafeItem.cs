@@ -1,12 +1,17 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
-namespace lat.Models.Completed
+namespace lat.Models
 {
+    
     public class SafeItem
     {
+        public int ID { get; set;  }
+        public int listID { get; set; }
         public string galleryURL { get; set; }
         public string viewItemURL { get; set; }
         public string title { get; set; }
@@ -63,9 +68,12 @@ namespace lat.Models.Completed
         }
     }
 
-    public class SafeItems
+    public class SafeItemList
     {
-        public List<SafeItem> safeItems { get; set; }
+
+        public int ID { get; set; }
+        public virtual List<SafeItem> safeItems { get; set; }
+        
 
     }
 }
