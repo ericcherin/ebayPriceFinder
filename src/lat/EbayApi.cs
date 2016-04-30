@@ -47,7 +47,7 @@ namespace lat
 
             //string callName = "findCompletedItems";
             string dataFormat = "JSON&REST-PAYLOAD";
-            string entriesPerPage = "100";
+            string entriesPerPage = "50";
             string serviceVersion = "1.0.0";
 
             string requestURL = "http://svcs.ebay.com/services/search/FindingService/v1?";
@@ -105,6 +105,10 @@ namespace lat
             if (unsafeItems != null && unsafeItems[0].searchResult != null)
             {
                 List<Item> items = unsafeItems[0].searchResult[0].item;
+                if(items == null)
+                {
+                    return safeItemList;
+                }
                 items.ForEach(x =>
                 {
                     Task<SafeItem> task = SafeItem.instantiate(x, description);
