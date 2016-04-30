@@ -76,14 +76,14 @@ namespace lat
                 unsafeItems = new FindCompleted();
             }
 
-            Profiler.newTask("converting from list to safeitems");
+
             si.AddRange( await toSafety(unsafeItems.findCompletedItemsResponse.Cast<ItemResponse>().ToList(), ""));
             
         }
 
         public static async Task getItemsByKeywords(String json, List<SafeItem> si)
         {
-            Profiler.newTask("deserialize");
+
             FindCurrent unsafeItems;
             try {
                 unsafeItems = JsonConvert.DeserializeObject<FindCurrent>(json);
@@ -92,15 +92,12 @@ namespace lat
             {
                 unsafeItems = new FindCurrent();
             }
-            Profiler.newTask("converting from list to safeitems");
             si.AddRange(await toSafety(unsafeItems.findItemsByKeywordsResponse.Cast<ItemResponse>().ToList(), "listing"));
             
         }
 
         public static async Task<List<SafeItem>> toSafety(List<ItemResponse> unsafeItems, string description)
         {
-            Profiler.newTask("fresh");
-            Profiler.newTask("tosafetyfunction");
      
             List<SafeItem> safeItemList = new List<SafeItem>();
             List<Task<SafeItem>> tasks = new List<Task<SafeItem>>();
@@ -117,7 +114,7 @@ namespace lat
 
             safeItemList.AddRange(await Task.WhenAll(tasks));
           
-            Profiler.newTask("end of to safety function");
+            
             return safeItemList;
         }
     }

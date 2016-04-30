@@ -6,17 +6,18 @@
 
 @using (Html.BeginForm("Ebay", "wo"))
 {
-    <br />
-    <input type="text"  name="searchWords" value="@ViewData["searchWords"]" />
-    <input type="submit" value="Search eBay" />
-    <br />
-    <br />
+
     
     
 
 }
 @using (Html.BeginForm("Ebay", "wo"))
 {
+    <br />
+    <input type="text" name="searchWords" value="@ViewData["searchWords"]" />
+    <input type="submit" value="Search eBay" />
+    <br />
+    <br />
     <b>Price higher than:</b>
     <input type="text" name="lower" />
     <b>Price lower than:</b>
@@ -144,6 +145,7 @@
     <input type="hidden" name="searchWords" value="@ViewData["searchWords"]" />
     <br />
     
+    
 
     @for (int i = 0; i < Model.safeItems.Count; i++)
     {
@@ -154,6 +156,7 @@
         @Html.HiddenFor(x => Model.safeItems[i].viewItemURL)
         @Html.HiddenFor(x => Model.safeItems[i].galleryURL)
         @Html.HiddenFor(x => Model.safeItems[i].sold)
+        @Html.HiddenFor(x => Model.safeItems[i].quantitySold);
 
         <div class="outlne">
             <div id="white" class="col-sm-2 top-buffer">
@@ -168,8 +171,13 @@
                     <div class="gray top-buffer">
                         @item.title <br /> <br /> Current Price: $@item.currentPrice
                         <br />
+                        @if (!"0".Equals(item.quantitySold))
+                        {
+                            @item.quantitySold
+                        }
                         <br />
                         @(item.sold)
+                        
                     </div>
                 </div>
 

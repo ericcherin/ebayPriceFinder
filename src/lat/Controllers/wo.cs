@@ -68,8 +68,8 @@ namespace lat.Controllers
                 return View(si);
             }
 
-            CachedSearch cachedSearch = _context.CachedSearch.SingleOrDefault(m => m.searchTerms.Equals(searchWords));
-            if (cachedSearch == null)
+            CachedSearch cachedSearch = _context.CachedSearch.FirstOrDefault(m => m.searchTerms.Equals(searchWords));
+            if (cachedSearch == null || !("Filter").Equals(filter))
             {
                 si = await EbayApi.getItems(searchWords);
                 cachedSearch = new CachedSearch();
@@ -94,7 +94,9 @@ namespace lat.Controllers
                
           
             }
-          
+
+            si.safeItems = si.safeItems.OrderByDescending(a => a.currentPrice).ToList();   
+                   
             if (("Filter").Equals(filter))
             {
                 SafeItemList tempSi;
