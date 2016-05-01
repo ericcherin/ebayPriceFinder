@@ -58,7 +58,7 @@ namespace lat.Controllers
 
         public async Task<ActionResult> Ebay(string searchWords, string filter, string lower, string higher)
         {
-            Writer.appendString(searchWords);
+            
             ViewData["searchWords"] = searchWords;
             SafeItemList si = new SafeItemList(); ;
 

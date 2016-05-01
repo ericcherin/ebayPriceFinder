@@ -8,11 +8,15 @@ namespace lat
 {
     public static class Writer
     {
-        private static StreamWriter logWriter = System.IO.File.AppendText("log.txt");
+        
 
         public static async void appendString(string message)
         {
-            await logWriter.WriteLineAsync(message);
+            using(StreamWriter logWriter = System.IO.File.AppendText("log.txt"))
+            {
+                await logWriter.WriteLineAsync(message);
+            }
+            
         }
 
         public static void appendString(string message, string fileName)
