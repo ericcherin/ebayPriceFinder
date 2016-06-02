@@ -47,7 +47,7 @@ namespace lat
 
             //string callName = "findCompletedItems";
             string dataFormat = "JSON&REST-PAYLOAD";
-            string entriesPerPage = "50";
+            string entriesPerPage = "20";
             string serviceVersion = "1.0.0";
 
             string requestURL = "http://svcs.ebay.com/services/search/FindingService/v1?";
@@ -92,7 +92,7 @@ namespace lat
             {
                 unsafeItems = new FindCurrent();
             }
-            si.AddRange(await toSafety(unsafeItems.findItemsByKeywordsResponse.Cast<ItemResponse>().ToList(), "listing"));
+            si.AddRange(await toSafety(unsafeItems.findItemsByKeywordsResponse.Cast<ItemResponse>().ToList(), "running"));
             
         }
 

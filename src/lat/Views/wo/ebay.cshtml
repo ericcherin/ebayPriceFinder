@@ -6,13 +6,6 @@
 
 @using (Html.BeginForm("Ebay", "wo"))
 {
-
-    
-    
-
-}
-@using (Html.BeginForm("Ebay", "wo"))
-{
     <br />
     <input type="text" name="searchWords" value="@ViewData["searchWords"]" />
     <input type="submit" value="Search eBay" />
@@ -23,10 +16,41 @@
     <b>Price lower than:</b>
     <input type="text" name="higher" />
     <input type="submit" name="filter" value="Filter" />
-    
+
     <br />
 
     <br />
+
+    List<SafeItem> sold = new List<SafeItem>();
+    List<SafeItem> notSold = new List<SafeItem>();
+    List<SafeItem> running = new List<SafeItem>();
+
+    @for (int i = 0; i < Model.safeItems.Count; i++)
+    {
+        SafeItem item = Model.safeItems[i];
+
+        @Html.HiddenFor(x => Model.safeItems[i].currentPrice)
+        @Html.HiddenFor(x => Model.safeItems[i].title)
+        @Html.HiddenFor(x => Model.safeItems[i].viewItemURL)
+        @Html.HiddenFor(x => Model.safeItems[i].galleryURL)
+        @Html.HiddenFor(x => Model.safeItems[i].sold)
+        @Html.HiddenFor(x => Model.safeItems[i].quantitySold);
+
+        switch (item.sold)
+        {
+            case "running":
+                running.Add(item);
+                break;
+            case "not sold":
+                notSold.Add(item);
+                break;
+            case "sold":
+                sold.Add(item);
+                break;
+        }
+
+    }
+
 
 <body>
     <div style="width:50%;margin: 0 auto">
@@ -42,48 +66,47 @@
 			label: "",//blank
 			data:[{x:0,y:0}]}
 			,{
-                label: "not sold",
+			    label: "not sold (" + @notSold.Count + ")",
                 data: [
-                 @for (int i = 0; i < Model.safeItems.Count; i++)
-                {
-                    if (Model.safeItems[i].sold.Equals("not sold")) {
+                 @for (int i = 0; i < notSold.Count; i++)
+                 {
+                     
                         <text>
                         {
                             x: 1,
-                            y: @Model.safeItems[i].currentPrice
+                            y: @notSold[i].currentPrice
                         },
                         </text>
-                    }
-                }
+                     
+                 }
                 ]
             }, {
-                label: "sold",
+                label: "sold (" + @sold.Count + ")",
                 data: [
-                    @for (int i = 0; i < Model.safeItems.Count; i++)
+                    @for (int i = 0; i < sold.Count; i++)
                     {
-                        if (Model.safeItems[i].sold.Equals("sold")) {
+                        
                         <text>
                         {
                             x: 2,
-                            y: @Model.safeItems[i].currentPrice
+                            y: @sold[i].currentPrice
                         },
                         </text>
-                            }
-                        }
+                        
+                    }
                ]
             },{
-                label: "listing",
+                label: "running (" + @running.Count + ")" ,
                 data: [                
-                        @for (int i = 0; i < Model.safeItems.Count; i++)
+                        @for (int i = 0; i < running.Count; i++)
                         {
-                            if (Model.safeItems[i].sold.Equals("listing")) {
-                                <text>
+                             <text>
                                 {
                                     x: 3,
-                                    y: @Model.safeItems[i].currentPrice
+                                    y: @running[i].currentPrice
                                 },
                                 </text>
-                            }
+                            
                         }              
                 ]
             }, {
@@ -144,50 +167,160 @@
 
     <input type="hidden" name="searchWords" value="@ViewData["searchWords"]" />
     <br />
-    
-    
 
-    @for (int i = 0; i < Model.safeItems.Count; i++)
+
+
+  
+
+    int runningCount = 0;
+    int notSoldCount = 0;
+    int soldCount = 0;
+
+    while (runningCount < running.Count || notSoldCount < notSold.Count || soldCount < sold.Count)
     {
-        SafeItem item = Model.safeItems[i];
 
-        @Html.HiddenFor(x => Model.safeItems[i].currentPrice)
-        @Html.HiddenFor(x => Model.safeItems[i].title)
-        @Html.HiddenFor(x => Model.safeItems[i].viewItemURL)
-        @Html.HiddenFor(x => Model.safeItems[i].galleryURL)
-        @Html.HiddenFor(x => Model.safeItems[i].sold)
-        @Html.HiddenFor(x => Model.safeItems[i].quantitySold);
 
-        <div class="outlne">
-            <div id="white" class="col-sm-2 top-buffer">
-                <div class="top-buffer">
+        if (notSoldCount < notSold.Count)
+        {
+            SafeItem item = notSold[notSoldCount];
+
+            <div class="outlne">
+            <div id="white" class="col-sm-1 top-buffer nopadding ">
+                <div>
                     <img src="@item.galleryURL" />
-                </div>
+                </div >
 
             </div>
 
             <a href="@item.viewItemURL">
-                <div class="col-sm-4">
-                    <div class="gray top-buffer">
-                        @item.title <br /> <br /> Current Price: $@item.currentPrice
-                        <br />
-                        @if (!"0".Equals(item.quantitySold))
-                        {
-                            @item.quantitySold
-                        }
-                        <br />
-                        @(item.sold)
-                        
-                    </div>
+            <div class="col-sm-3 nopadding top-buffer borderRight">
+                <div class="blue ">
+                    @item.title<br /> <br /> Current Price: $@item.currentPrice
+                    <br />
+                    @if (!"0".Equals(item.quantitySold))
+                    {
+                        @item.quantitySold
+                    }
+                    <br />
+                    @(item.sold)
+
                 </div>
+            </div>
 
             </a>
-            <!--<r class="col-sm-3 select top-buffer" id="@(count)">@count</r>-->
-        </div>
 
+            </div>
 
-        count++;
+            notSoldCount++;
+
+        }
+        else
+        {
+            <div class="outlne">
+                <div id="white" class="col-sm-1 top-buffer nopadding ">
+                  
+
+                </div>
+                <div id="white" class="col-sm-3 top-buffer nopadding borderRight">
+                    
+
+                </div>
+                </div>
+        }
+
+        if (soldCount < sold.Count)
+        {
+            SafeItem item = sold[soldCount];
+            <div class="outlne">
+                <div id="white" class="col-sm-1 top-buffer nopadding ">
+                    <div>
+                        <img src="@item.galleryURL" />
+                    </div>
+
+                </div>
+
+                <a href="@item.viewItemURL">
+                    <div class="col-sm-3 nopadding top-buffer borderRight">
+                        <div class="blue">
+                            @item.title<br /> <br /> Current Price: $@item.currentPrice
+                            <br />
+                            @if (!"0".Equals(item.quantitySold))
+                            {
+                                @item.quantitySold
+                            }
+                            <br />
+                            @(item.sold)
+
+                        </div>
+                    </div>
+
+                </a>
+
+            </div>
+            soldCount++;
+
+        }
+        else
+        {
+            <div class="outlne">
+                <div id="white" class="col-sm-1 top-buffer nopadding">
+                
+
+                </div>
+                <div id="white" class="col-sm-3 top-buffer nopadding borderRight">
+                  
+
+                </div>
+            </div>
+
+        }
+
+        if (runningCount < running.Count)
+        {
+            SafeItem item = running[runningCount];
+            <div class="outlne">
+                <div id="white" class="col-sm-1 top-buffer nopadding ">
+                    <div >
+                        <img src="@item.galleryURL" />
+                    </div>
+
+                </div>
+
+                <a href="@item.viewItemURL">
+                    <div class="col-sm-3 nopadding top-buffer">
+                        <div class="blue">
+                            @item.title<br /> <br /> Current Price: $@item.currentPrice
+                            <br />
+                            @if (!"0".Equals(item.quantitySold))
+                            {
+                                @item.quantitySold
+                            }
+                            <br />
+                            @(item.sold)
+
+                        </div>
+                    </div>
+
+                </a>
+
+            </div>
+            runningCount++;
+
+        }
+        else
+        {
+            <div class="outlne">
+                <div id="white" class="col-sm-1 top-buffer nopadding">
+                 
+
+                </div>
+                <div id="white" class="col-sm-3 top-buffer nopadding">
+                   
+
+                </div>
+            </div>
+        }
+
     }
-
 }
 
