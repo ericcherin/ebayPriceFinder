@@ -42,7 +42,7 @@ namespace lat.Models
             }
         }
 
-        public static async Task<SafeItem> instantiate(Item item, string description)
+        public static async Task<SafeItem> instantiateOld(Item item, string description)
         {
             
             SafeItem s = new SafeItem(item);
@@ -62,6 +62,32 @@ namespace lat.Models
             return s;
         }
 
+        public static async Task<SafeItem> instantiate(Item item, string description)
+        {
+
+            SafeItem s = new SafeItem(item);
+            s.sold = description;
+
+            if (s.viewItemURL != null)
+            {
+                var webClient = new System.Net.WebClient();
+                string htmlSource = await webClient.DownloadStringTaskAsync(s.viewItemURL);
+                if (s.sold.Length == 0)
+                {
+                    s.sold = isSold(htmlSource);
+                }
+
+                s.quantitySold = await getQuantitySold(htmlSource, webClient, s.title);
+            }
+            return s;
+        }
+
+        public static SafeItem instantiateFast(Item item, string description)
+        {
+            SafeItem s = new SafeItem(item);
+            s.sold = description;
+            return s;
+        }
 
         public static async Task<string >getQuantitySold(string htmlSource, System.Net.WebClient webClient, string title)
         {

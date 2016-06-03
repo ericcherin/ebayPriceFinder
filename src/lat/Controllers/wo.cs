@@ -34,11 +34,11 @@ namespace lat.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult chart()
+        public String chart()
         {
 
-           
-            return View();
+
+            return EbayApi.getResponse("bottle", "findCompletedItems", false, false) ;
         }
 
 
@@ -68,9 +68,10 @@ namespace lat.Controllers
                 return View(si);
             }
 
-            CachedSearch cachedSearch = _context.CachedSearch.FirstOrDefault(m => m.searchTerms.Equals(searchWords));
-            if (cachedSearch == null || !("Filter").Equals(filter))
+            CachedSearch cachedSearch = _context.CachedSearch.LastOrDefault(m => m.searchTerms.Equals(searchWords));
+            if ( !("Filter").Equals(filter))
             {
+                Writer.appendString("heythere");
                 si = await EbayApi.getItems(searchWords);
                 cachedSearch = new CachedSearch();
                 cachedSearch.searchTerms = searchWords;

@@ -3,6 +3,50 @@ using System.Collections.Generic;
 namespace lat.Models
 {
 
+    public class PrimaryCategory
+    {
+        public List<string> categoryId { get; set; }
+        public List<string> categoryName { get; set; }
+    }
+
+    public class ShippingServiceCost
+    {
+        public string currencyId { get; set; }
+        public string __value__ { get; set; }
+    }
+
+    public class BuyItNowPrice
+    {
+        public string currencyId { get; set; }
+        public string __value__ { get; set; }
+    }
+
+    public class ConvertedBuyItNowPrice
+    {
+        public string currencyId { get; set; }
+        public string __value__ { get; set; }
+    }
+
+
+    public class SellingStatus
+    {
+        public List<CurrentPrice> currentPrice { get; set; }
+        public List<ConvertedCurrentPrice> convertedCurrentPrice { get; set; }
+        public List<string> sellingState { get; set; }
+        public List<string> timeLeft { get; set; }
+        public List<string> bidCount { get; set; }
+    }
+
+
+
+    public class ProductId
+    {
+        public string type { get; set; }
+        public string __value__ { get; set; }
+    }
+
+
+
     public class SecondaryCategory
     {
         public List<string> categoryId { get; set; }
@@ -31,6 +75,18 @@ namespace lat.Models
         public List<string> endTime { get; set; }
         public List<string> listingType { get; set; }
         public List<string> gift { get; set; }
+        public List<BuyItNowPrice> buyItNowPrice { get; set; }
+        public List<ConvertedBuyItNowPrice> convertedBuyItNowPrice { get; set; }
+    }
+
+    public class ShippingInfo
+    {
+        public List<ShippingServiceCost> shippingServiceCost { get; set; }
+        public List<string> shippingType { get; set; }
+        public List<string> shipToLocations { get; set; }
+        public List<string> expeditedShipping { get; set; }
+        public List<string> oneDayShippingAvailable { get; set; }
+        public List<string> handlingTime { get; set; }
     }
 
     public class Condition
@@ -46,6 +102,7 @@ namespace lat.Models
         public List<string> title { get; set; }
         public List<string> globalId { get; set; }
         public List<PrimaryCategory> primaryCategory { get; set; }
+        public List<SecondaryCategory> secondaryCategory { get; set; }
         public List<string> galleryURL { get; set; }
         public List<string> viewItemURL { get; set; }
         public List<string> paymentMethod { get; set; }
@@ -61,6 +118,7 @@ namespace lat.Models
         public List<string> isMultiVariationListing { get; set; }
         public List<string> topRatedListing { get; set; }
         public List<ProductId> productId { get; set; }
+        public List<string> galleryPlusPictureURL { get; set; }
     }
 
     public class SearchResult
@@ -96,6 +154,15 @@ namespace lat.Models
         public List<string> itemSearchURL { get; set; }
     }
 
+    public class FindSoldResponse : ItemResponse
+    {
+        public List<string> ack { get; set; }
+        public List<string> version { get; set; }
+        public List<string> timestamp { get; set; }
+        public List<SearchResult> searchResult { get; set; }
+        public List<PaginationOutput> paginationOutput { get; set; }
+    }
+
     public interface ItemResponse
     {
         List<string> ack { get; set; }
@@ -113,5 +180,10 @@ namespace lat.Models
     public class FindCurrent
     {
         public List<FindItemsByKeywordsResponse> findItemsByKeywordsResponse { get; set; }
+    }
+
+    public class FindSold
+    {
+        public List<FindCompletedItemsResponse> findCompletedItemsResponse { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using lat.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,22 +14,36 @@ namespace lat
 
         public static async Task<SafeItemList> getItems(String searchWords)
         {
-            
+            //Writer.appendString("ff!");
+
             SafeItemList itemsWrapper = new SafeItemList();
             itemsWrapper.safeItems = new List<SafeItem>();
             Profiler.clear();
             Profiler.start("get respinse 1");
-            String completedResponse = getResponse(searchWords, "findCompletedItems");
+            //String completedResponse = getResponse(searchWords, "findCompletedItems", false);
+            String soldResponse = getResponse(searchWords, "findCompletedItems", true, true);
+            String notSoldResponse = getResponse(searchWords, "findCompletedItems", true, false);
+
             Profiler.newTask("get respone2");
-            String currentResponse = getResponse(searchWords, "findItemsByKeywords");
+            String currentResponse = getResponse(searchWords, "findItemsByKeywords", false, false);
 
             Profiler.newTask("add convert to safeitems");
-            Task t1 = getCompletedItems(completedResponse, itemsWrapper.safeItems);
+            //Task t1 = getCompletedItems(completedResponse, itemsWrapper.safeItems);
+            List<SafeItem> soldList = getList(soldResponse, "sold");
+            List<SafeItem> notSoldList = getList(notSoldResponse, "not sold");
+            notSoldList = removeSolds(soldList, notSoldList);
+
+           
 
             Profiler.newTask("add convert to safeitems");
-            Task t2 = getItemsByKeywords(currentResponse, itemsWrapper.safeItems);
+            //Task t2 = getItemsByKeywords(currentResponse, itemsWrapper.safeItems);
+            List<SafeItem> runningList = getListCurrent(currentResponse, "running");
+            //await Task.WhenAll( t2);
 
-            await Task.WhenAll(t1, t2);
+            itemsWrapper.safeItems.AddRange(notSoldList);
+            itemsWrapper.safeItems.AddRange(soldList);
+            itemsWrapper.safeItems.AddRange(runningList);
+         
             Profiler.stop();
             //Profiler.write();
             
@@ -37,7 +52,24 @@ namespace lat
             return itemsWrapper;
         }
 
-        private static string getResponse(String searchWords, String callName)
+        public static List<SafeItem> removeSolds(List<SafeItem> soldList, List<SafeItem> notSoldList)
+        {
+            List<SafeItem> result = new List<SafeItem>();
+            List<String> soldUrl = new List<String>();
+
+            soldList.ForEach(x => soldUrl.Add(x.viewItemURL));
+
+            foreach(SafeItem item in notSoldList)
+            {
+                if (!soldUrl.Contains(item.viewItemURL))
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
+
+        public static string getResponse(String searchWords, String callName, Boolean filter, Boolean isSold)
         {
             // credentials are hard-coded for this example
             // string devId = "410bc734-250c-42fd-9a6a-40e902d389ac";     // use your dev ID
@@ -47,7 +79,7 @@ namespace lat
 
             //string callName = "findCompletedItems";
             string dataFormat = "JSON&REST-PAYLOAD";
-            string entriesPerPage = "20";
+            string entriesPerPage = "100";
             string serviceVersion = "1.0.0";
 
             string requestURL = "http://svcs.ebay.com/services/search/FindingService/v1?";
@@ -57,6 +89,11 @@ namespace lat
             requestURL += "&RESPONSE-DATA-FORMAT=" + dataFormat;
             requestURL += "&keywords=" + searchWords;
             requestURL += "&paginationInput.entriesPerPage=" + entriesPerPage;
+            if (filter)
+            {
+                requestURL += "&itemFilter.name=SoldItemsOnly";
+                requestURL += "&itemFilter.value=" + isSold;
+            }
 
             var webClient = new System.Net.WebClient();
 
@@ -88,12 +125,48 @@ namespace lat
             try {
                 unsafeItems = JsonConvert.DeserializeObject<FindCurrent>(json);
             }
-            catch (JsonSerializationException e)
+            catch (JsonSerializationException )
             {
                 unsafeItems = new FindCurrent();
             }
             si.AddRange(await toSafety(unsafeItems.findItemsByKeywordsResponse.Cast<ItemResponse>().ToList(), "running"));
             
+        }
+
+        public static List<SafeItem> getList(String json, String condition)
+        {
+            
+            FindSold unsafeItems = new FindSold();
+            
+       
+            try
+            {
+                unsafeItems = JsonConvert.DeserializeObject<FindSold>(json);
+            }
+            catch (Exception e )
+            {
+            }
+            List < SafeItem > si = new List<SafeItem>();
+            si.AddRange(safeify(unsafeItems.findCompletedItemsResponse.Cast<ItemResponse>().ToList(), condition));
+            return si;
+        }
+
+        public static List<SafeItem> getListCurrent(String json, String condition)
+        {
+
+            FindCurrent unsafeItems = new FindCurrent();
+
+
+            try
+            {
+                unsafeItems = JsonConvert.DeserializeObject<FindCurrent>(json);
+            }
+            catch (Exception e)
+            {
+            }
+            List<SafeItem> si = new List<SafeItem>();
+            si.AddRange(safeify(unsafeItems.findItemsByKeywordsResponse.Cast<ItemResponse>().ToList(), condition));
+            return si;
         }
 
         public static async Task<List<SafeItem>> toSafety(List<ItemResponse> unsafeItems, string description)
@@ -119,6 +192,29 @@ namespace lat
             safeItemList.AddRange(await Task.WhenAll(tasks));
           
             
+            return safeItemList;
+        }
+
+        public static List<SafeItem> safeify(List<ItemResponse> unsafeItems, string description)
+        {
+
+            List<SafeItem> safeItemList = new List<SafeItem>();
+            List<Task<SafeItem>> tasks = new List<Task<SafeItem>>();
+
+            if (unsafeItems != null && unsafeItems[0].searchResult != null)
+            {
+                List<Item> items = unsafeItems[0].searchResult[0].item;
+                if (items == null)
+                {
+                    return safeItemList;
+                }
+                items.ForEach(x =>
+                { 
+                    safeItemList.Add(SafeItem.instantiateFast(x, description));
+                });
+            }
+
+
             return safeItemList;
         }
     }
